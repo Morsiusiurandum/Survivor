@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
     CharacterController CC;
     public Text text;
     public GameObject Head, Body;
-    public float MouseSensitivity;
     public float MoveSpeed;
     public float xRotation, yRotation;
  
@@ -32,13 +31,13 @@ public class Player : MonoBehaviour
         //移动
         CC.Move(Speed * MoveSpeed);
 
-        
+        //Cursor.lockState = CursorLockMode.Locked;
 
         //视角移动
         if (!Input.GetKey(KeyCode.Tab))
         {
-            var Mouse_X = Input.GetAxis("Mouse X") * MouseSensitivity * Time.deltaTime;
-            var Mouse_Y = Input.GetAxis("Mouse Y") * MouseSensitivity * Time.deltaTime;
+            var Mouse_X = Input.GetAxis("Mouse X") * BaseSetting.MouseSensitivity * Time.deltaTime;
+            var Mouse_Y = Input.GetAxis("Mouse Y") * BaseSetting.MouseSensitivity * Time.deltaTime;
 
             xRotation = xRotation - Mouse_Y;
             xRotation = Mathf.Clamp(xRotation, -50f, 50f);
@@ -86,6 +85,6 @@ public class Player : MonoBehaviour
             PublicVariables.TabDown = false;
         }
     }
-    
-    
+
+   
 }

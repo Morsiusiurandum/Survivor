@@ -13,22 +13,29 @@ public class UI : MonoBehaviour
     internal GameObject PieMenu;
     internal CanvasGroup canvasgroup;
     internal Image ImageOfPieMenu;
+    public Canvas MainUI;
+    public Canvas PauseUI;
 
     //
     //
 
     void Start()
     {
-        PieMenu = GameObject.Find("UI/Pie Menu");
+        PieMenu = GameObject.Find("UI/Main UI/Pie Menu");
         canvasgroup = PieMenu.GetComponent<CanvasGroup>();
         ImageOfPieMenu = PieMenu.GetComponent<Image>();
         LoadPieMenuSprite();
-     }
+        MainUI = GameObject.Find("UI").transform.Find("Main UI").gameObject.GetComponent<Canvas>();
+        PauseUI = GameObject.Find("UI").transform.Find("Pause UI").gameObject.GetComponent<Canvas>();
+    }
     void Update()
     {
         UsePieMenu();
-
-
+        MousePointer();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pause();
+        }
     }
 
     /// <summary>
@@ -88,5 +95,15 @@ public class UI : MonoBehaviour
         }
 
 
+    }
+
+    //Pause Button
+    void Pause()
+    {
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.Confined;
+
+        PauseUI.gameObject.SetActive(true);
+        MainUI.gameObject.SetActive(false);
     }
 }

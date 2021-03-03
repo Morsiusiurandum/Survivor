@@ -7,9 +7,9 @@ public class PublicVariables
     public static int globle = 1;
     internal static bool TabDown = false;
 }
-public class BaseSetting
+internal class BaseSetting
 {
-    public static float MouseSensitivity  = 20;
+    internal static float MouseSensitivity  = 200;
     public static float MoveSpeed;
 }
 public class BaseFunction
