@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class PlayerMove : MonoBehaviour
 {
     CharacterController CC;
     public Text text;
-    public GameObject Head, Body;
-    public float MoveSpeed;
-    public float xRotation, yRotation;
+    internal GameObject Eyes, Body;
+    internal float MoveSpeed;
+    internal float xRotation, yRotation;
  
     void Start()
     {
         CC = GetComponent<CharacterController>();
+        Eyes = GameObject.Find("Player/Body/Eyes");
+        Body = GameObject.Find("Player");
     }
 
 
@@ -30,9 +32,6 @@ public class Player : MonoBehaviour
         }
         //移动
         CC.Move(Speed * MoveSpeed);
-
-        //Cursor.lockState = CursorLockMode.Locked;
-
         //视角移动
         if (!Input.GetKey(KeyCode.Tab))
         {
@@ -45,10 +44,10 @@ public class Player : MonoBehaviour
             //身体左右旋转
             Body.transform.rotation = Quaternion.Euler(0, yRotation, 0);
             //头部同步左右旋转且上下点
-            Head.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+            Eyes.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
 
             //绘制射线
-            Ray ray = new Ray(Head.transform.position, Head.transform.forward);
+            Ray ray = new Ray(Eyes.transform.position, Eyes.transform.forward);
             bool isCollider = Physics.Raycast(ray, out RaycastHit hit, 10, 1 << 8);
             Debug.DrawLine(ray.origin, ray.origin + ray.direction * 10);
             //显示碰撞名字
@@ -69,9 +68,6 @@ public class Player : MonoBehaviour
                 }
 
             }
-            int test = PublicVariables.globle;
-            //Debug.Log(test);
-            PublicVariables.globle = 3;
         }
 
 

@@ -83,16 +83,19 @@ public class UI : MonoBehaviour
     {
         //Pie Menu
         //
-        if (PublicVariables.TabDown)
+        if (PublicVariables.Mode == 0)
         {
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
+            if (PublicVariables.TabDown)
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
 
-        }
 
 
     }
@@ -101,9 +104,18 @@ public class UI : MonoBehaviour
     void Pause()
     {
         Time.timeScale = 0;
+        PublicVariables.Mode = 1;
         Cursor.lockState = CursorLockMode.Confined;
-
         PauseUI.gameObject.SetActive(true);
         MainUI.gameObject.SetActive(false);
+    }
+    public void Continue()
+    {
+        Time.timeScale = 1;
+        PublicVariables.Mode = 0;
+        Cursor.lockState = CursorLockMode.Locked;
+        PauseUI.gameObject.SetActive(false);
+        MainUI.gameObject.SetActive(true);
+
     }
 }

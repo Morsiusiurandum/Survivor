@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PublicVariables
 {
-    public static int globle = 1;
     internal static bool TabDown = false;
+    internal static int Mode = 0;
 }
 internal class BaseSetting
 {
