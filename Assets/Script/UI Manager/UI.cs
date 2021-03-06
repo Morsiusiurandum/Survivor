@@ -11,7 +11,6 @@ public class UI : MonoBehaviour
     internal int K;
     internal Sprite[] temp = new Sprite[7];
     internal GameObject PieMenu;
-    internal CanvasGroup canvasgroup;
     internal Image ImageOfPieMenu;
     public Canvas MainUI;
     public Canvas PauseUI;
@@ -21,12 +20,12 @@ public class UI : MonoBehaviour
 
     void Start()
     {
-        PieMenu = GameObject.Find("UI/Main UI/Pie Menu");
-        canvasgroup = PieMenu.GetComponent<CanvasGroup>();
-        ImageOfPieMenu = PieMenu.GetComponent<Image>();
-        LoadPieMenuSprite();
+        
         MainUI = GameObject.Find("UI").transform.Find("Main UI").gameObject.GetComponent<Canvas>();
         PauseUI = GameObject.Find("UI").transform.Find("Pause UI").gameObject.GetComponent<Canvas>();
+        PieMenu = GameObject.Find("UI/Main UI").transform.Find("Pie Menu").gameObject;
+        ImageOfPieMenu = PieMenu.GetComponent<Image>();
+        LoadPieMenuSprite();
     }
     void Update()
     {
@@ -55,7 +54,7 @@ public class UI : MonoBehaviour
         //
         if (PublicVariables.TabDown)
         {
-            canvasgroup.alpha = 1;
+            PieMenu.SetActive(true);
             MouseX = (int)(Input.mousePosition.x - Screen.width / 2f);
             MouseY = (int)(Input.mousePosition.y - Screen.height / 2f);
             if (Mathf.Abs(MouseX) >= 80 || Mathf.Abs(MouseY) >= 80)
@@ -70,7 +69,8 @@ public class UI : MonoBehaviour
         }
         else
         {
-            canvasgroup.alpha = 0;
+            PieMenu.SetActive(false);
+
 
         }
 

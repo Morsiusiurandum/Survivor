@@ -10,7 +10,6 @@ public class PublicVariables
 internal class BaseSetting
 {
     internal static float MouseSensitivity  = 200;
-    public static float MoveSpeed;
 }
 public class BaseFunction
 {

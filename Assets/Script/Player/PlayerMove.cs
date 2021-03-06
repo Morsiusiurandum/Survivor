@@ -31,7 +31,16 @@ public class PlayerMove : MonoBehaviour
             CC.Move(-transform.up * Time.deltaTime * 9.8f);
         }
         //移动
-        CC.Move(Speed * MoveSpeed);
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            CC.Move(Speed * PlayerValue.Player_Run_Speed);
+
+        }
+        else
+        {
+            CC.Move(Speed * PlayerValue.Player_Walk_Speed);
+        }
+        
         //视角移动
         if (!Input.GetKey(KeyCode.Tab))
         {
@@ -69,6 +78,8 @@ public class PlayerMove : MonoBehaviour
 
             }
         }
+
+      
 
 
         //Tab按键检测
