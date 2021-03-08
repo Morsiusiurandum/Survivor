@@ -18,6 +18,7 @@ public class UI : MonoBehaviour
     //
     //
 
+
     void Start()
     {
         
@@ -45,7 +46,7 @@ public class UI : MonoBehaviour
     {
         for (int i = 0; i < 7; i++)
         {
-            temp[i] = Resources.Load<Sprite>("Material/temp" + (i + 1).ToString());
+            temp[i] = Resources.Load<Sprite>("Material/Pie Menu/temp" + (i + 1).ToString());
         }
     }
     void UsePieMenu()

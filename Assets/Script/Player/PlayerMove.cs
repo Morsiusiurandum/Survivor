@@ -10,7 +10,7 @@ public class PlayerMove : MonoBehaviour
     internal GameObject Eyes, Body;
     internal float MoveSpeed;
     internal float xRotation, yRotation;
- 
+
     void Start()
     {
         CC = GetComponent<CharacterController>();
@@ -25,22 +25,36 @@ public class PlayerMove : MonoBehaviour
         var Horizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
         var Vertical = Input.GetAxis("Vertical") * Time.deltaTime;
         Vector3 Speed = (Vertical * transform.forward + Horizontal * transform.right);
+        if (Speed == Vector3.zero)
+        {
+            PlayerValue.Player_Condition = PlayerCondition.Stand;
+        }
+        else
+        {
+            //移动
+            if (Input.GetKey(KeyCode.LeftShift)&&PlayerValue.Player_Strength_Value>0 )
+            {
+                CC.Move(Speed * PlayerValue.Player_Run_Speed);
+                PlayerValue.Player_Condition = PlayerCondition.Run;
+            }
+            else
+            {
+                CC.Move(Speed * PlayerValue.Player_Walk_Speed);
+                PlayerValue.Player_Condition = PlayerCondition.Walk;
+            }
+        }
+
+
+
+
         //模拟重力
+        //
         if (!CC.isGrounded)
         {
             CC.Move(-transform.up * Time.deltaTime * 9.8f);
         }
-        //移动
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            CC.Move(Speed * PlayerValue.Player_Run_Speed);
 
-        }
-        else
-        {
-            CC.Move(Speed * PlayerValue.Player_Walk_Speed);
-        }
-        
+
         //视角移动
         if (!Input.GetKey(KeyCode.Tab))
         {
@@ -79,7 +93,7 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-      
+
 
 
         //Tab按键检测
@@ -93,5 +107,5 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-   
+
 }
