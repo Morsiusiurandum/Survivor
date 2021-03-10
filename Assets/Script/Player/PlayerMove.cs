@@ -70,8 +70,8 @@ public class PlayerMove : MonoBehaviour
             Eyes.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
 
             //绘制射线
-            Ray ray = new Ray(Eyes.transform.position, Eyes.transform.forward);
-            bool isCollider = Physics.Raycast(ray, out RaycastHit hit, 10, 1 << 8);
+            PublicVariables.ray = new Ray(Eyes.transform.position, Eyes.transform.forward);
+            /*bool isCollider = Physics.Raycast(ray, out RaycastHit hit, 10, 1 << 8);
             Debug.DrawLine(ray.origin, ray.origin + ray.direction * 10);
             //显示碰撞名字
             if (isCollider)
@@ -90,7 +90,7 @@ public class PlayerMove : MonoBehaviour
                     hit.collider.gameObject.SetActive(false);
                 }
 
-            }
+            }*/
         }
 
 

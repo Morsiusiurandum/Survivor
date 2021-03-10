@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PublicVariables
 {
+    internal static Ray ray;
     internal static bool TabDown = false;
     internal static int Mode = 0;
 }
