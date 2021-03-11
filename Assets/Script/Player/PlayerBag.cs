@@ -3,31 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+struct item
+{
+   readonly internal string name;
+   private byte number;
 
+    readonly internal byte num()
+    {
+        return number;
+    }
+    internal void add_number(byte num)
+    {
+        number += num;
+    }
+
+    item(string new_name,byte new_num)
+    {
+        name = new_name;
+        number = new_num;
+    }
+}
 public class PlayerBag : MonoBehaviour
 {
-    public ArrayList BagList = new ArrayList();
-    internal Text item_name;
+    internal List<item> props = new List<item>();
     void Start()
     {
-        item_name = GameObject.Find("UI/Main UI/Text").GetComponent<Text>();
-    }
-    void Update()
-    {
-       
 
-        ShowBag(Input.GetKey(KeyCode.B));
     }
-   
-    void ShowBag(bool press_key)
+    private void Update()
     {
-        if (press_key)
+        
+    }
+    void Data_Update(item new_item)
+    {
+        for (int i=0;i<props.Count;i++)
         {
-            item_name.text = BagList[0].ToString();
+            if (props[i].name == new_item.name)
+            {
+                props[i].add_number(new_item.num());
+                return;
+            }
         }
-        else
-        {
-            item_name.text = null;
-        }
+
+        props.Add(new_item);
     }
 }
