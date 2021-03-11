@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+//read only
 public class PlayerValue_UI : MonoBehaviour
 {
     public Slider[] Value = new Slider[5];
@@ -19,67 +19,7 @@ public class PlayerValue_UI : MonoBehaviour
         Value[2].value = PlayerValue.Player_Thirst_Value / 100;
         Value[3].value = PlayerValue.Player_Willpower_Value / 100;
         Value[4].value = PlayerValue.Player_Strength_Value / 100;
-        Change_Player_Strength_Value(PlayerValue.Player_Condition);
     }
-    void Change_Player_Strength_Value(PlayerCondition condition)
-    {
-        switch (condition)
-        {
-            case PlayerCondition.Walk:
-                if (PlayerValue.Player_Strength_Value > 0)
-                {
-                    PlayerValue.Player_Strength_Value = PlayerValue.Player_Strength_Value - Time.deltaTime;
-                }
-                else
-                {
-                    PlayerValue.Player_Strength_Value = 0;
-                }
-                break;
-
-            case PlayerCondition.Run:
-                if (PlayerValue.Player_Strength_Value > 0)
-                {
-                    PlayerValue.Player_Strength_Value = PlayerValue.Player_Strength_Value - Time.deltaTime * 20;
-                }
-                else
-                {
-                    PlayerValue.Player_Strength_Value = 0;
-                }
-                break;
-
-            case PlayerCondition.Stand:
-                if (PlayerValue.Player_Strength_Value < 100)
-                {
-                    PlayerValue.Player_Strength_Value = PlayerValue.Player_Strength_Value + Time.deltaTime;
-                }
-                else
-                {
-                    PlayerValue.Player_Strength_Value = 100;
-                }
-                break;
-
-        }
-    }
+    
 }
-
-     
-    /*void Change_Player_Hunger_Value(PlayerCondition condition)
-    {
-        switch (condition)
-        {
-            case PlayerCondition.Walk:
-                if (PlayerValue.Player_Hunger_Value>=0)
-                {
-                    PlayerValue.Player_Hunger_Value = PlayerValue.Player_Hunger_Value
-                }
-                break;
-
-            case PlayerCondition.Run:
-                break;
-
-            case PlayerCondition.Stand:
-                break;
-
-        }
-    }*/
 

@@ -14,22 +14,11 @@ public class PlayerBag : MonoBehaviour
     }
     void Update()
     {
-        Click(PublicVariables.ray,Input.GetKeyUp(KeyCode.Mouse1));
+       
 
         ShowBag(Input.GetKey(KeyCode.B));
     }
-    void Click(Ray ray,bool click_button)
-    { 
-        if (!click_button) return;
-        bool isCollider = Physics.Raycast(ray, out RaycastHit hit, 10, 1 << 8);
-        if (!isCollider) return;
-
-        if (!BagList.Contains(hit.collider.gameObject.name))
-        {
-            BagList.Add(hit.collider.gameObject.name);
-            Debug.Log(hit.collider.gameObject.name);
-        }    
-    }
+   
     void ShowBag(bool press_key)
     {
         if (press_key)
@@ -42,8 +31,3 @@ public class PlayerBag : MonoBehaviour
         }
     }
 }
-struct item
-     {
-        string name;
-        int num;
-    };
