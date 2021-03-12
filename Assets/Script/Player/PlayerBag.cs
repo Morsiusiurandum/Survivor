@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 struct item
 {
-   readonly internal string name;
-   private byte number;
+    readonly internal string name;
+    private byte number;
 
-    readonly internal byte num()
+    internal byte num()
     {
         return number;
     }
@@ -17,7 +17,7 @@ struct item
         number += num;
     }
 
-    item(string new_name,byte new_num)
+    item(string new_name, byte new_num)
     {
         name = new_name;
         number = new_num;
@@ -32,11 +32,11 @@ public class PlayerBag : MonoBehaviour
     }
     private void Update()
     {
-        
+
     }
     void Data_Update(item new_item)
     {
-        for (int i=0;i<props.Count;i++)
+        for (int i = 0; i < props.Count; i++)
         {
             if (props[i].name == new_item.name)
             {

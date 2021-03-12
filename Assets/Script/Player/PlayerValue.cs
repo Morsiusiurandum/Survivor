@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[SerializeField]
 public enum PlayerCondition { Walk, Run, Stand };
 internal class PlayerValue
 {
