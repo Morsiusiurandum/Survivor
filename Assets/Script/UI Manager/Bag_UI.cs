@@ -6,23 +6,33 @@ using UnityEngine.UI;
 
 struct item_information
 {
-    item_information(item initial_data)
+    private Text item_ui_name;
+    private Text item_ui_weight;
+    private Text item_ui_number;
+    private Text item_ui_description;
+    private Image item_ui_picture;
+    //未完成
+    /*
+    item_information()
     {
-
+        
     }
+    */
 }
+
+
 public class Bag_UI : MonoBehaviour
 {
-    [Header("Information of Item")]  
-    [SerializeField]
-    private Text Name;
-    private Text Weight;
+   
+
+
+
     void Start()
     {
 
     }
     void Update()
     {
-        
+
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
-struct item
+class item
 {
     [SerializeField] private string item_name;
     [SerializeField] private byte item_number;
@@ -27,7 +27,14 @@ struct item
     }
     internal void add_number(byte num)
     {
-        item_number +=num;
+        if ((item_number + num) > 255)
+        {
+            item_number = 255;
+        }
+        else
+        {
+            item_number += num;
+        }
     }
     //Analysis Data to Struct the item
     internal item(string Data)
@@ -38,17 +45,22 @@ struct item
         item_name = var[0];
         for (int i = 0; i < var[1].Length; i++)
         {
-            item_number += (byte)(var[1][i] - '0');
+            item_number = (byte)(item_number * 10 + var[1][i] - '0');
         }
     }
+}
+[Serializable]
+class Wrap
+{
+    [SerializeField]
+    internal List<item> props = new List<item>();
 }
 /// <summary>
 /// 
 /// </summary>
 public class PlayerBag : MonoBehaviour
 {
-    [SerializeField]
-    private List<item> props = new List<item>();
+    Wrap wrap_props = new Wrap();
     void Start()
     {
         try
@@ -58,13 +70,12 @@ public class PlayerBag : MonoBehaviour
                 string SaveJson;
                 while ((SaveJson = sr.ReadLine()) != null)
                 {
-                    Debug.Log(SaveJson);
+                    wrap_props = JsonUtility.FromJson<Wrap>(SaveJson);
                 }
             }
         }
         catch (Exception e)
         {
-            Debug.Log("The file could not be read:");
             Debug.Log(e.Message);
         }
     }
@@ -72,23 +83,18 @@ public class PlayerBag : MonoBehaviour
     {
         Get_Item(Input.GetKeyDown(KeyCode.Mouse0));
     }
-    /// <summary>
-    /// 
-    /// </summary>
+
     void Data_Update(item new_item)
     {
-        //*****BUG
-        for (int i = 0; i < props.Count; i++)
+        for (int i = 0; i < wrap_props.props.Count; i++)
         {
-            if (props[i].name == new_item.name)
+            if (wrap_props.props[i].name == new_item.name)
             {
-                props[i].add_number(new_item.num);
+                wrap_props.props[i].add_number(new_item.num);
                 return;
             }
         }
-        //*****BUG
-        /// 无法更改存入list的值
-        props.Add(new_item);
+        wrap_props.props.Add(new_item);
     }
     void Get_Item(bool KeyInput)
     {
@@ -97,9 +103,9 @@ public class PlayerBag : MonoBehaviour
         if (!isCollider) return;
         Data_Update(new item(hit.collider.gameObject.name));
         Destroy(hit.collider.gameObject);
-        string json = JsonUtility.ToJson(props);
+        string json = JsonUtility.ToJson(wrap_props);
         Debug.Log(json);
-      /* try
+        try
         {
             using (StreamWriter sw = new StreamWriter("C:/Users/Mors/Desktop/DataBase.txt"))
             {
@@ -110,12 +116,6 @@ public class PlayerBag : MonoBehaviour
         {
 
             Debug.Log(e.Message);
-        }*/
-    }
-
-    void test()
-    {
-        Debug.Log(props[0].name);
-        Debug.Log(props[0].num.ToString());
+        }
     }
 }

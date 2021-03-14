@@ -489,7 +489,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &45501162
 RectTransform:
   m_ObjectHideFlags: 0
@@ -621,7 +621,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0726a8ed34ee8543a02c5561c227b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: {fileID: 0}
 --- !u!1 &126615308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,7 +1551,7 @@ GameObject:
   - component: {fileID: 432783380}
   - component: {fileID: 432783379}
   m_Layer: 8
-  m_Name: Cube_2_
+  m_Name: Cube_37_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1719,7 +1718,7 @@ GameObject:
   - component: {fileID: 632188429}
   - component: {fileID: 632188428}
   m_Layer: 8
-  m_Name: Cube_2_ (2)
+  m_Name: Cube_3_ (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2699,7 +2698,7 @@ GameObject:
   - component: {fileID: 1037334877}
   - component: {fileID: 1037334876}
   m_Layer: 8
-  m_Name: Cubes_2_ (1)
+  m_Name: Cubes_1_ (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4786,7 +4785,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f42c058c4405a749a50c188e7266fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  props: []
 --- !u!1 &2007641893
 GameObject:
   m_ObjectHideFlags: 0
