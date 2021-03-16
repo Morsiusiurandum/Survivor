@@ -14,6 +14,7 @@ public class UI : MonoBehaviour
     internal Image ImageOfPieMenu;
     public Canvas MainUI;
     public Canvas PauseUI;
+    public Canvas BagUI;
 
     //
     //
@@ -21,9 +22,10 @@ public class UI : MonoBehaviour
 
     void Start()
     {
-        
+
         MainUI = GameObject.Find("UI").transform.Find("Main UI").gameObject.GetComponent<Canvas>();
         PauseUI = GameObject.Find("UI").transform.Find("Pause UI").gameObject.GetComponent<Canvas>();
+        BagUI = GameObject.Find("UI").transform.Find("Bag UI").gameObject.GetComponent<Canvas>();
         PieMenu = GameObject.Find("UI/Main UI").transform.Find("Pie Menu").gameObject;
         ImageOfPieMenu = PieMenu.GetComponent<Image>();
         LoadPieMenuSprite();
@@ -36,6 +38,12 @@ public class UI : MonoBehaviour
         {
             Pause();
         }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            Change(KeyCode.B);
+        }
+
     }
 
     /// <summary>
@@ -118,5 +126,18 @@ public class UI : MonoBehaviour
         PauseUI.gameObject.SetActive(false);
         MainUI.gameObject.SetActive(true);
 
+    }
+
+    //Change UI
+    private void Change(KeyCode get)
+    {
+        if (get == KeyCode.B)
+        {
+           Time.timeScale = 0;
+            MainUI.gameObject.SetActive(false);
+            PublicVariables.Mode = 1;
+            Cursor.lockState = CursorLockMode.Confined;
+            BagUI.gameObject.SetActive(true);
+        }
     }
 }
