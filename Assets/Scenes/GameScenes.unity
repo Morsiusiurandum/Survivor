@@ -626,6 +626,7 @@ MonoBehaviour:
   item_ui_number: {fileID: 0}
   item_ui_description: {fileID: 0}
   item_ui_picture: {fileID: 0}
+  var: {fileID: 0}
 --- !u!1 &126615308
 GameObject:
   m_ObjectHideFlags: 0

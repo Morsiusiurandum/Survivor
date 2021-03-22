@@ -60,7 +60,7 @@ class Wrap
 /// </summary>
 public class PlayerBag : MonoBehaviour
 {
-    Wrap wrap_props = new Wrap();
+    internal Wrap wrap_props = new Wrap();
     void Start()
     {
         try
@@ -78,10 +78,12 @@ public class PlayerBag : MonoBehaviour
         {
             Debug.Log(e.Message);
         }
+        PlayerValue.props_value = wrap_props.props;
     }
     private void Update()
     {
         Get_Item(Input.GetKeyDown(KeyCode.Mouse0));
+        
     }
 
     void Data_Update(item new_item)
@@ -104,6 +106,7 @@ public class PlayerBag : MonoBehaviour
         Data_Update(new item(hit.collider.gameObject.name));
         Destroy(hit.collider.gameObject);
         string json = JsonUtility.ToJson(wrap_props);
+
         Debug.Log(json);
         try
         {
