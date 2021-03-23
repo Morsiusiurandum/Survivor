@@ -32,7 +32,7 @@ public class PlayerMove : MonoBehaviour
         else
         {
             //移动
-            if (Input.GetKey(KeyCode.LeftShift)&&PlayerValue.Player_Strength_Value>0 )
+            if (Input.GetKey(KeyCode.LeftShift) && PlayerValue.Player_Strength_Value > 0)
             {
                 CC.Move(Speed * PlayerValue.Player_Run_Speed);
                 PlayerValue.Player_Condition = PlayerCondition.Run;
@@ -71,41 +71,18 @@ public class PlayerMove : MonoBehaviour
 
             //绘制射线
             PublicVariables.ray = new Ray(Eyes.transform.position, Eyes.transform.forward);
-            /*bool isCollider = Physics.Raycast(ray, out RaycastHit hit, 10, 1 << 8);
-            Debug.DrawLine(ray.origin, ray.origin + ray.direction * 10);
-            //显示碰撞名字
-            if (isCollider)
+
+            //Tab按键检测
+            if (Input.GetKey(KeyCode.Tab))
             {
-                text.text = hit.collider.gameObject.name;
+                PublicVariables.TabDown = true;
             }
             else
             {
-                text.text = "none";
+                PublicVariables.TabDown = false;
             }
-            //捡起物体
-            if (isCollider)
-            {
-                if (Input.GetKeyUp(KeyCode.Space))
-                {
-                    hit.collider.gameObject.SetActive(false);
-                }
-
-            }*/
         }
 
 
-
-
-        //Tab按键检测
-        if (Input.GetKey(KeyCode.Tab))
-        {
-            PublicVariables.TabDown = true;
-        }
-        else
-        {
-            PublicVariables.TabDown = false;
-        }
     }
-
-
 }

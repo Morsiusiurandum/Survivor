@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+internal enum GameState
+{
+    Pause, Bag, Death, Normal
+}
 public class UI : MonoBehaviour
 {
     // 放射菜单的变量
@@ -18,7 +21,7 @@ public class UI : MonoBehaviour
 
     //
     //
-
+    internal GameState game_state = GameState.Normal;
 
     void Start()
     {
@@ -41,7 +44,8 @@ public class UI : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            Change(KeyCode.B);
+            Change();
+            Debug.Log("1");
         }
 
     }
@@ -129,15 +133,28 @@ public class UI : MonoBehaviour
     }
 
     //Change UI
-    private void Change(KeyCode get)
+    private void Change()
     {
-        if (get == KeyCode.B)
+        if (game_state == GameState.Normal)
         {
-           Time.timeScale = 0;
+            Debug.Log("2");
+
+            Time.timeScale = 0;
             MainUI.gameObject.SetActive(false);
             PublicVariables.Mode = 1;
             Cursor.lockState = CursorLockMode.Confined;
             BagUI.gameObject.SetActive(true);
+            game_state = GameState.Bag;
+        }
+        else if (game_state == GameState.Bag)
+        {
+            Time.timeScale = 1;
+            MainUI.gameObject.SetActive(true);
+            BagUI.gameObject.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            game_state = GameState.Normal;
+
+
         }
     }
 }
