@@ -45,7 +45,6 @@ public class UI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             Change();
-            Debug.Log("1");
         }
 
     }
@@ -137,7 +136,6 @@ public class UI : MonoBehaviour
     {
         if (game_state == GameState.Normal)
         {
-            Debug.Log("2");
 
             Time.timeScale = 0;
             MainUI.gameObject.SetActive(false);
