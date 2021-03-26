@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-//read only
-public class PlayerValue_UI : MonoBehaviour
+public class ValueUI : MonoBehaviour
 {
     public Slider[] Value = new Slider[5];
     void Start()

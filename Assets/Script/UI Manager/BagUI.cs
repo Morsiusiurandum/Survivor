@@ -13,7 +13,7 @@ struct item_information
     public float weight_information;
 };
 
-public class Bag_UI : MonoBehaviour
+public class BagUI : MonoBehaviour
 {
     item_information testA = new item_information();
 
