@@ -10,6 +10,7 @@ public class ValueUI : MonoBehaviour
         GameObject var = GameObject.Find("UI/Main UI/Player_Value");
         Value = var.GetComponentsInChildren<Slider>();
     }
+
     void FixedUpdate()
     {
 

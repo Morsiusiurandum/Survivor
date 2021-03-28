@@ -26,7 +26,6 @@ public class UIManager : MonoBehaviour
         MainUI = GameObject.Find("UI").transform.Find("Main UI").gameObject.GetComponent<Canvas>();
         PauseUI = GameObject.Find("UI").transform.Find("Pause UI").gameObject.GetComponent<Canvas>();
         BagUI = GameObject.Find("UI").transform.Find("Bag UI").gameObject.GetComponent<Canvas>();
-        LoadPieMenuSprite();
     }
     void Update()
     {
@@ -105,17 +104,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
+
     ///<summary>
-    ///Refactor code
-    ///</summary>
-
-
+    /// 已弃用
+    /// </summary>
     internal void Mouse_Pointer_Changer()
     {//使鼠标状态在锁定与自由间切换
         if (Cursor.lockState == CursorLockMode.None)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+
         }
         else if (Cursor.lockState == CursorLockMode.Locked)
         {
