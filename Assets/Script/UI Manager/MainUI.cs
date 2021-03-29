@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Public;
+using EnumNamespcae;
 
 public class MainUI : MonoBehaviour
 {
@@ -43,12 +43,12 @@ public class MainUI : MonoBehaviour
             {
                 pie_menu_image.sprite = pie_menu_sprite[6];
             }
-            SimpleFunction.Mouse_Point_Converter(mouse_status.Freedom);
+            SimpleFunction.Mouse_Point_Converter(MouseStatus.Freedom);
         }
         else
         {
             pie_menu_image.color = new Color(255, 255, 255, 0);
-            SimpleFunction.Mouse_Point_Converter(mouse_status.Locked);
+            SimpleFunction.Mouse_Point_Converter(MouseStatus.Locked);
         }
     }
 
@@ -91,7 +91,7 @@ public class MainUI : MonoBehaviour
     void Update()
     {
         Player_Value_Update();
-        Show_Pie_Menu(Input.GetKey(KeyCode.Tab)&&PublicVariables.Mode==0);
+        Show_Pie_Menu(Input.GetKey(KeyCode.Tab)&& GlobalVariables.game_status==GameStatus.Main);
     }
 
 }

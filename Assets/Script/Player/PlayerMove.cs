@@ -11,6 +11,17 @@ public class PlayerMove : MonoBehaviour
     internal float MoveSpeed;
     internal float xRotation, yRotation;
 
+
+    private void Character_Move(float horizontal_parameter, float vertical_parameter)
+    {
+        Vector3 Speed = (horizontal_parameter * transform.forward + vertical_parameter * transform.right);
+        if (Speed != Vector3.zero)
+        {
+
+        }
+    }
+
+
     void Start()
     {
         CC = GetComponent<CharacterController>();
@@ -21,7 +32,6 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        //为物体计算速度
         var Horizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
         var Vertical = Input.GetAxis("Vertical") * Time.deltaTime;
         Vector3 Speed = (Vertical * transform.forward + Horizontal * transform.right);
@@ -31,7 +41,6 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-            //移动
             if (Input.GetKey(KeyCode.LeftShift) && PlayerValue.Player_Strength_Value > 0)
             {
                 CC.Move(Speed * PlayerValue.Player_Run_Speed);
@@ -72,15 +81,7 @@ public class PlayerMove : MonoBehaviour
             //绘制射线
             PublicVariables.ray = new Ray(Eyes.transform.position, Eyes.transform.forward);
 
-            //Tab按键检测
-            if (Input.GetKey(KeyCode.Tab))
-            {
-                PublicVariables.TabDown = true;
-            }
-            else
-            {
-                PublicVariables.TabDown = false;
-            }
+
         }
 
 

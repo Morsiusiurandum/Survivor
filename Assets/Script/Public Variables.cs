@@ -1,19 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Public;
+using EnumNamespcae;
 
-namespace Public
+namespace EnumNamespcae
 {
-    public enum mouse_status { Locked, Freedom };
+    public enum MouseStatus { Locked, Freedom };
+
+    public enum GameStatus { Main, Bag, Pause };
+
+    public enum GameCanvas { PauseUI, MainUI, BagUI };
+
+    public enum PlayerCondition { Walk, Run, Stand };
+
 }
 
+
+[SerializeField]
+internal class PlayerValue
+{
+    internal static PlayerCondition Player_Condition = PlayerCondition.Stand;
+
+    internal static float Player_Walk_Speed = 2;
+    internal static float Player_Run_Speed = 5;
+    internal static float Player_Hunger_Value = 0;
+    internal static float Player_Temperature_Value = 36.5f;
+    internal static float Player_Thirst_Value = 0;
+    internal static float Player_Willpower_Value = 100;
+    internal static float Player_Strength_Value = 100;
+
+    internal static List<item> props_value;
+}
 
 public class PublicVariables
 {
     internal static Ray ray;
     internal static bool TabDown = false;
-    internal static int Mode = 0;
 }
 internal class BaseSetting
 {
@@ -33,7 +55,10 @@ public class BaseFunction
         }
     }
 }
-
+internal class GlobalVariables
+{
+    internal static GameStatus game_status;
+}
 
 internal class SimpleFunction
 {
@@ -43,16 +68,20 @@ internal class SimpleFunction
     /// <param name="destination">
     /// 切换的目的状态 
     /// </param>
-    public static void Mouse_Point_Converter(mouse_status destination)
+    public static void Mouse_Point_Converter(MouseStatus destination)
     {
-        if(destination == mouse_status.Locked)
+        if (destination == MouseStatus.Locked)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-        }else if(destination == mouse_status.Freedom)
+        }
+        else if (destination == MouseStatus.Freedom)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
     }
+
 }
+
+
