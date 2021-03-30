@@ -2,66 +2,64 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using EnumNamespcae;
 
 public class PlayerMove : MonoBehaviour
 {
-    CharacterController CC;
-    public Text text;
-    internal GameObject Eyes, Body;
-    internal float MoveSpeed;
-    internal float xRotation, yRotation;
+    private CharacterController character_controller;
+    private Text text;
+    internal GameObject eyes, body;
+    internal float y_rotation, x_rotation;
 
-
-    private void Character_Move(float horizontal_parameter, float vertical_parameter)
+    /// <summary>
+    /// 组件获取函数
+    /// </summary>
+    private void Get_Component()
     {
-        Vector3 Speed = (horizontal_parameter * transform.forward + vertical_parameter * transform.right);
-        if (Speed != Vector3.zero)
-        {
+        character_controller = GetComponent<CharacterController>();
+        eyes = GameObject.Find("Player/Body/Eyes");
+        body = GameObject.Find("Player");
+    }
 
+    /// <summary>
+    /// 角色运动控制器(包括重力模拟
+    /// </summary>
+    /// <param name="meet_run_condition">
+    ///当满足奔跑条件时为真 
+    /// </param>
+    private void Character_Move(bool meet_run_condition)
+    {
+        //重力模拟
+        if (!character_controller.isGrounded) character_controller.Move(-transform.up * Time.deltaTime * 9.8f);
+        //移动模拟
+        Vector3 final_speed = (Input.GetAxis("Horizontal") * transform.forward + Input.GetAxis("Vertical") * transform.right) * Time.deltaTime;
+        if (final_speed == Vector3.zero)
+        {
+            PlayerValue.player_condition = PlayerCondition.Stand;
+        }
+        else if (meet_run_condition)
+        {
+            character_controller.Move(final_speed * PlayerValue.player_run_speed);
+            PlayerValue.player_condition = PlayerCondition.Run;
+        }
+        else
+        {
+            character_controller.Move(final_speed * PlayerValue.player_walk_speed);
+            PlayerValue.player_condition = PlayerCondition.Walk;
         }
     }
 
 
+
     void Start()
     {
-        CC = GetComponent<CharacterController>();
-        Eyes = GameObject.Find("Player/Body/Eyes");
-        Body = GameObject.Find("Player");
+        Get_Component();
     }
 
 
     void Update()
     {
-        var Horizontal = Input.GetAxis("Horizontal") * Time.deltaTime;
-        var Vertical = Input.GetAxis("Vertical") * Time.deltaTime;
-        Vector3 Speed = (Vertical * transform.forward + Horizontal * transform.right);
-        if (Speed == Vector3.zero)
-        {
-            PlayerValue.Player_Condition = PlayerCondition.Stand;
-        }
-        else
-        {
-            if (Input.GetKey(KeyCode.LeftShift) && PlayerValue.Player_Strength_Value > 0)
-            {
-                CC.Move(Speed * PlayerValue.Player_Run_Speed);
-                PlayerValue.Player_Condition = PlayerCondition.Run;
-            }
-            else
-            {
-                CC.Move(Speed * PlayerValue.Player_Walk_Speed);
-                PlayerValue.Player_Condition = PlayerCondition.Walk;
-            }
-        }
 
-
-
-
-        //模拟重力
-        //
-        if (!CC.isGrounded)
-        {
-            CC.Move(-transform.up * Time.deltaTime * 9.8f);
-        }
 
 
         //视角移动
@@ -70,16 +68,15 @@ public class PlayerMove : MonoBehaviour
             var Mouse_X = Input.GetAxis("Mouse X") * BaseSetting.MouseSensitivity * Time.deltaTime;
             var Mouse_Y = Input.GetAxis("Mouse Y") * BaseSetting.MouseSensitivity * Time.deltaTime;
 
-            xRotation = xRotation - Mouse_Y;
-            xRotation = Mathf.Clamp(xRotation, -50f, 50f);
-            yRotation = yRotation + Mouse_X;
+            y_rotation -= Mouse_Y;
+            y_rotation = Mathf.Clamp(y_rotation, -50f, 50f);
+            x_rotation += Mouse_X;
             //身体左右旋转
-            Body.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+            body.transform.rotation = Quaternion.Euler(0, x_rotation, 0);
             //头部同步左右旋转且上下点
-            Eyes.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-
+            eyes.transform.rotation = Quaternion.Euler(y_rotation, x_rotation, 0);
             //绘制射线
-            PublicVariables.ray = new Ray(Eyes.transform.position, Eyes.transform.forward);
+            PublicVariables.ray = new Ray(eyes.transform.position, eyes.transform.forward);
 
 
         }

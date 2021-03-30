@@ -19,7 +19,12 @@ namespace EnumNamespcae
 [SerializeField]
 internal class PlayerValue
 {
-    internal static PlayerCondition Player_Condition = PlayerCondition.Stand;
+    internal static PlayerCondition player_condition = PlayerCondition.Stand;
+
+    internal static float player_walk_speed = 2f;
+    internal static float player_run_speed = 5f;
+    
+    
 
     internal static float Player_Walk_Speed = 2;
     internal static float Player_Run_Speed = 5;
