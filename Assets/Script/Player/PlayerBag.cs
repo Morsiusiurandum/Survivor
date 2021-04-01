@@ -55,38 +55,33 @@ class Wrap
     [SerializeField]
     internal List<item> props = new List<item>();
 }
-/// <summary>
-/// 
-/// </summary>
+
 public class PlayerBag : MonoBehaviour
 {
-    internal Wrap wrap_props = new Wrap();
-    void Start()
+    ///<value> 
+    ///包装物品的类项
+    ///</value>
+    private Wrap wrap_props = new Wrap();
+
+    /// <summary>
+    /// 加载存档中的背包物品，加载物品的美术资源
+    /// </summary>
+    /// <param name="save_path">
+    /// 背包存档路径
+    /// </param>
+    private void Load_Bag_Items(string save_path)
     {
-        try
-        {
-            using (StreamReader sr = new StreamReader("C:/Users/Mors/Desktop/DataBase.txt"))
-            {
-                string SaveJson;
-                while ((SaveJson = sr.ReadLine()) != null)
-                {
-                    wrap_props = JsonUtility.FromJson<Wrap>(SaveJson);
-                }
-            }
-        }
-        catch (Exception e)
-        {
-            Debug.Log(e.Message);
-        }
-        PlayerValue.props_value = wrap_props.props;
-    }
-    private void Update()
-    {
-        Get_Item(Input.GetKeyDown(KeyCode.Mouse0));
-        
+        wrap_props = JsonUtility.FromJson<Wrap>(SimpleFunction.Json_Read(save_path));
+        PlayerData.props_value = wrap_props.props;
     }
 
-    void Data_Update(item new_item)
+    /// <summary>
+    /// 将新拾取物品加入背包中的物品栏
+    /// </summary>
+    /// <param name="new_item">
+    /// 新拾取的物品
+    /// </param>
+    private void Bag_Props_Update(item new_item)
     {
         for (int i = 0; i < wrap_props.props.Count; i++)
         {
@@ -98,16 +93,27 @@ public class PlayerBag : MonoBehaviour
         }
         wrap_props.props.Add(new_item);
     }
+
+
+    void Start()
+    {
+        Load_Bag_Items("C:/Users/Mors/Desktop/DataBase.txt");
+    }
+    private void Update()
+    {
+        Get_Item(Input.GetKeyDown(KeyCode.Mouse0));
+    }
+
+    
     void Get_Item(bool KeyInput)
     {
         if (!KeyInput) return;
         bool isCollider = Physics.Raycast(PublicVariables.ray, out RaycastHit hit, 10, 1 << 8);
         if (!isCollider) return;
-        Data_Update(new item(hit.collider.gameObject.name));
+        Bag_Props_Update(new item(hit.collider.gameObject.name));
         Destroy(hit.collider.gameObject);
         string json = JsonUtility.ToJson(wrap_props);
 
-        Debug.Log(json);
         try
         {
             using (StreamWriter sw = new StreamWriter("C:/Users/Mors/Desktop/DataBase.txt"))

@@ -51,9 +51,9 @@ public class BagUI : MonoBehaviour
     void Update()
     {
 
-        item_ui_name.text = PlayerValue.props_value[0].name;
-        item_ui_weight.text = (PlayerValue.props_value[0].num * testA.weight_information).ToString();
-        item_ui_number.text = PlayerValue.props_value[0].num.ToString();
+        item_ui_name.text = PlayerData.props_value[0].name;
+        item_ui_weight.text = (PlayerData.props_value[0].num * testA.weight_information).ToString();
+        item_ui_number.text = PlayerData.props_value[0].num.ToString();
         item_ui_description.text = testA.description_information;
 
        /* try

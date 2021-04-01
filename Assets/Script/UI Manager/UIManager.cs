@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using EnumNamespcae;
+using Mors;
 
 public class UIManager : MonoBehaviour
 {
