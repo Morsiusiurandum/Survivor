@@ -6,67 +6,64 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-[Serializable]
-struct item_information
-{
-    public string description_information;
-    public float weight_information;
-};
 
 public class BagUI : MonoBehaviour
 {
-    item_information testA = new item_information();
 
+    private GameObject var;
     [SerializeField] private TextMeshProUGUI item_ui_name;
     [SerializeField] private TextMeshProUGUI item_ui_weight;
     [SerializeField] private TextMeshProUGUI item_ui_number;
     [SerializeField] private TextMeshProUGUI item_ui_description;
     [SerializeField] private RawImage item_ui_picture;
-    public GameObject var;
-    void Awake()
+
+    [SerializeField]  private Button[] item_buttons = new Button[7];
+
+
+    private void Get_Component()
     {
-         var = GameObject.Find("UI/Bag UI/Item");
+        var = GameObject.Find("UI/Bag UI/Item");
         item_ui_name = var.transform.Find("Name").gameObject.GetComponent<TextMeshProUGUI>();
         item_ui_weight = var.transform.Find("Weight").gameObject.GetComponent<TextMeshProUGUI>();
         item_ui_number = var.transform.Find("Number").gameObject.GetComponent<TextMeshProUGUI>();
         item_ui_description = var.transform.Find("Description").gameObject.GetComponent<TextMeshProUGUI>();
         item_ui_picture = var.transform.Find("Picture").gameObject.GetComponent<RawImage>();
 
-        try
+        item_buttons = GameObject.Find("UI/Bag UI/ShowItem").GetComponentsInChildren<Button>();
+    }
+
+    private void Load_Item_Data()
+    {
+        int props_number = PlayerData.props_value.Count;
+        for(int i = props_number; i < item_buttons.Length; i++)
         {
-            using (StreamReader sr = new StreamReader("C:/Users/Mors/Desktop/Information.txt"))
-            {
-                string json_read;
-                while ((json_read = sr.ReadLine()) != null)
-                {
-                    testA = JsonUtility.FromJson<item_information>(json_read);
-                }
-            }
+            item_buttons[i].gameObject.SetActive(false);
         }
-        catch (Exception e)
-        {
-            Debug.Log(e.Message);
-        }
+   
+    }
+
+    private void Show_Item_Information(int item_index)
+    {
+        item_ui_name.text = PlayerData.props_value[item_index].name;
+    }
+    public void Click_Button()
+    {
+        Button var_button = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
+        int button_index = Array.IndexOf(item_buttons, var_button);
+
+        Show_Item_Information(button_index);
+    }
+    private void Start()
+    {
+
+        Get_Component();
+        Load_Item_Data();
+
+
     }
     void Update()
     {
 
-        item_ui_name.text = PlayerData.props_value[0].name;
-        item_ui_weight.text = (PlayerData.props_value[0].num * testA.weight_information).ToString();
-        item_ui_number.text = PlayerData.props_value[0].num.ToString();
-        item_ui_description.text = testA.description_information;
-
-       /* try
-        {
-            using (StreamWriter sw = new StreamWriter("C:/Users/Mors/Desktop/Information.txt"))
-            {
-                sw.WriteLine(JsonUtility.ToJson(testA));
-            }
-        }
-        catch (Exception e)
-        {
-
-            Debug.Log(e.Message);
-        }*/
+       
     }
 }

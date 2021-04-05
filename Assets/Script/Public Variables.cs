@@ -155,3 +155,8 @@ internal class KeyboardManager
 {
 
 }
+
+internal class GameComponent
+{
+    
+}

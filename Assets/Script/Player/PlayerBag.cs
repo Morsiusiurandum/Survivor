@@ -95,7 +95,7 @@ public class PlayerBag : MonoBehaviour
     }
 
 
-    void Start()
+    void Awake()
     {
         Load_Bag_Items("C:/Users/Mors/Desktop/DataBase.txt");
     }
