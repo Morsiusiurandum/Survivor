@@ -25,8 +25,6 @@ internal class PlayerData
     internal static PlayerCondition player_condition = PlayerCondition.Stand;
     internal static float player_walk_speed = 2f;
     internal static float player_run_speed = 5f;
-    internal static float Player_Walk_Speed = 2;
-    internal static float Player_Run_Speed = 5;
     internal static float Player_Hunger_Value = 0;
     internal static float Player_Temperature_Value = 36.5f;
     internal static float Player_Thirst_Value = 0;
@@ -66,9 +64,14 @@ public class BaseFunction
     }
 }
 
-internal class GlobalVariables
+internal class GameGlobalVariables
 {
-    internal static GameStatus game_status;
+    internal static GameStatus game_status = GameStatus.Main;
+
+    internal static GameCanvas game_canavs = GameCanvas.MainUI;
+
+    internal static MouseStatus mouse_status = MouseStatus.Locked;
+
 }
 
 internal class SimpleFunction
@@ -83,11 +86,13 @@ internal class SimpleFunction
     {
         if (destination == MouseStatus.Locked)
         {
+            GameGlobalVariables.mouse_status = MouseStatus.Locked;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
         else if (destination == MouseStatus.Freedom)
         {
+            GameGlobalVariables.mouse_status = MouseStatus.Freedom;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }

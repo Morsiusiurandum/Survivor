@@ -30,7 +30,8 @@ public class MainUI : MonoBehaviour
     private void Show_Pie_Menu(bool meet_condition)
     {
         if (meet_condition)
-        {
+        { 
+            SimpleFunction.Mouse_Point_Converter(MouseStatus.Freedom);
             pie_menu_image.color = new Color(255, 255, 255, 255);
             mouse_x = (int)(Input.mousePosition.x - Screen.width / 2f);
             mouse_y = (int)(Input.mousePosition.y - Screen.height / 2f);
@@ -43,7 +44,7 @@ public class MainUI : MonoBehaviour
             {
                 pie_menu_image.sprite = pie_menu_sprite[6];
             }
-            SimpleFunction.Mouse_Point_Converter(MouseStatus.Freedom);
+           
         }
         else
         {
@@ -91,7 +92,7 @@ public class MainUI : MonoBehaviour
     private void Update()
     {
         Player_Value_Update();
-        Show_Pie_Menu(Input.GetKey(KeyCode.Tab) && GlobalVariables.game_status == GameStatus.Main);
+        Show_Pie_Menu(Input.GetKey(KeyCode.Tab) && GameGlobalVariables.game_status == GameStatus.Main);
     }
 
 }

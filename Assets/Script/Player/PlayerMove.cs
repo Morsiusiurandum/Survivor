@@ -25,27 +25,28 @@ public class PlayerMove : MonoBehaviour
     /// 角色运动控制器(包括重力模拟
     /// </summary>
     /// <param name="meet_run_condition">
-    ///当仅满足奔跑条件时为真 
+    ///Shift=真 
     /// </param>
-    /// <param name="meet_walk_condition">
-    /// 当仅满足行走条件时为真
-    /// </param>
-    private void Character_Move(bool meet_run_condition,bool meet_walk_condition)
+    private void Character_Move(bool meet_run_condition)
     {
         //重力模拟
-        if (!character_controller.isGrounded) character_controller.Move(-transform.up * Time.deltaTime * 9.8f);
+        if (!character_controller.isGrounded)
+        {
+            character_controller.Move(-transform.up * Time.deltaTime * 9.8f);
+            return;
+        }
         //移动模拟
         Vector3 final_speed = (Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward) * Time.deltaTime;
         if (final_speed == Vector3.zero)
         {
             PlayerData.player_condition = PlayerCondition.Stand;
         }
-        else if (meet_run_condition && !meet_walk_condition)
+        else if (meet_run_condition)
         {
             character_controller.Move(final_speed * PlayerData.player_run_speed);
             PlayerData.player_condition = PlayerCondition.Run;
         }
-        else if (!meet_run_condition && meet_walk_condition)
+        else if (!meet_run_condition)
         {
             character_controller.Move(final_speed * PlayerData.player_walk_speed);
             PlayerData.player_condition = PlayerCondition.Walk;
@@ -56,7 +57,7 @@ public class PlayerMove : MonoBehaviour
     /// 角色视角转换器
     /// </summary>
     /// <param name="meet_move_condition">
-    /// 满足视角时为真
+    /// 主界面+鼠标锁定+tab未按下=真
     /// </param>
     private void Eyes_Move(bool meet_move_condition)
     {
@@ -82,7 +83,11 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        Character_Move(false,true);
-        Eyes_Move(true);
+        if (GameGlobalVariables.game_status == GameStatus.Main && GameGlobalVariables.mouse_status == MouseStatus.Locked)
+        {
+            Character_Move(Input.GetKey(KeyCode.LeftShift));
+            Eyes_Move(!Input.GetKey(KeyCode.Tab));
+        }
     }
 }
+
