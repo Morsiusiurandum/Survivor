@@ -42,7 +42,7 @@ public class BagUI : MonoBehaviour
    
     }
 
-    private void Show_Item_Information(int item_index)
+    private void Show_Props_Information(int item_index)
     {
         item_ui_name.text = PlayerData.props_value[item_index].name;
     }
@@ -51,7 +51,7 @@ public class BagUI : MonoBehaviour
         Button var_button = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
         int button_index = Array.IndexOf(item_buttons, var_button);
 
-        Show_Item_Information(button_index);
+        Show_Props_Information(button_index);
     }
     private void Start()
     {

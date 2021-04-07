@@ -11,6 +11,8 @@ public class PlayerMove : MonoBehaviour
     private GameObject eyes, body;
     private float y_rotation, x_rotation;
 
+    public Vector3 test;
+
     /// <summary>
     /// 组件获取函数
     /// </summary>
@@ -37,6 +39,7 @@ public class PlayerMove : MonoBehaviour
         }
         //移动模拟
         Vector3 final_speed = (Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward) * Time.deltaTime;
+        test = final_speed;
         if (final_speed == Vector3.zero)
         {
             PlayerData.player_condition = PlayerCondition.Stand;

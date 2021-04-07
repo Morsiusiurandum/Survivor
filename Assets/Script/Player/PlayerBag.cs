@@ -94,37 +94,28 @@ public class PlayerBag : MonoBehaviour
         wrap_props.props.Add(new_item);
     }
 
+    private void Pick_Up_Props(bool meet_pick_condition)
+    {
+        if (!meet_pick_condition) return;
 
-    void Awake()
-    {
-        Load_Bag_Items("C:/Users/Mors/Desktop/DataBase.txt");
-    }
-    private void Update()
-    {
-        Get_Item(Input.GetKeyDown(KeyCode.Mouse0));
-    }
-
-    
-    void Get_Item(bool KeyInput)
-    {
-        if (!KeyInput) return;
         bool isCollider = Physics.Raycast(PublicVariables.ray, out RaycastHit hit, 10, 1 << 8);
         if (!isCollider) return;
         Bag_Props_Update(new item(hit.collider.gameObject.name));
         Destroy(hit.collider.gameObject);
         string json = JsonUtility.ToJson(wrap_props);
-
-        try
-        {
-            using (StreamWriter sw = new StreamWriter("C:/Users/Mors/Desktop/DataBase.txt"))
-            {
-                sw.WriteLine(json);
-            }
-        }
-        catch (Exception e)
-        {
-
-            Debug.Log(e.Message);
-        }
+        SimpleFunction.Json_Write(JsonUtility.ToJson(wrap_props), "C:/Users/Mors/Desktop/DataBase.txt");
     }
+    private void Awake()
+    {
+        Load_Bag_Items("C:/Users/Mors/Desktop/DataBase.txt");
+    }
+    private void Update()
+    {
+        
+
+        Pick_Up_Props(Input.GetKeyDown(KeyCode.Mouse0));
+    }
+
+    
+   
 }
