@@ -9,7 +9,7 @@ public class MainUI : MonoBehaviour
     private Sprite[] pie_menu_sprite = new Sprite[7];
     private Image pie_menu_image;
     private float mouse_x, mouse_y;
-    private byte pie_menu_area;
+    [SerializeField] private byte pie_menu_area;
     /// <summary>
     /// 加载放射菜单的精灵
     /// </summary>
@@ -30,7 +30,7 @@ public class MainUI : MonoBehaviour
     private void Show_Pie_Menu(bool meet_condition)
     {
         if (meet_condition)
-        { 
+        {
             SimpleFunction.Mouse_Point_Converter(MouseStatus.Freedom);
             pie_menu_image.color = new Color(255, 255, 255, 255);
             mouse_x = (int)(Input.mousePosition.x - Screen.width / 2f);
@@ -44,7 +44,7 @@ public class MainUI : MonoBehaviour
             {
                 pie_menu_image.sprite = pie_menu_sprite[6];
             }
-           
+
         }
         else
         {
@@ -53,7 +53,30 @@ public class MainUI : MonoBehaviour
         }
     }
 
+    private void Select_Pie_Menu(bool meet_condition)
+    {
+        if (!meet_condition) return;
 
+        switch (pie_menu_area)
+        {
+
+            case 0:
+                break;
+            case 1: 
+                break;
+            case 2: 
+                break;
+            case 3:
+                break;
+            case 4: 
+                break;
+            case 5: 
+                break;
+            default:
+                break;
+        }
+        Debug.Log(pie_menu_area);
+    }
 
     private Slider[] value_ui = new Slider[4];
     /// <summary>
@@ -92,7 +115,11 @@ public class MainUI : MonoBehaviour
     private void Update()
     {
         Player_Value_Update();
-        Show_Pie_Menu(Input.GetKey(KeyCode.Tab) && GameGlobalVariables.game_status == GameStatus.Main);
+        if (GameGlobalVariables.game_status == GameStatus.Main)
+        {
+            Show_Pie_Menu(Input.GetKey(KeyCode.Tab));
+            Select_Pie_Menu(Input.GetKeyUp(KeyCode.Tab));
+        }
     }
 
 }

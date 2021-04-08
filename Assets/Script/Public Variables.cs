@@ -17,6 +17,16 @@ namespace Mors
 
     public enum PlayerBuff { };
 
+    [SerializeField]
+    public class ForSerialize<T>
+    {
+       public ForSerialize(T score_data)
+        {
+            warp_data = score_data;
+        }
+        [SerializeField]
+        private T warp_data;
+    }
 }
 
 [SerializeField]
@@ -163,5 +173,5 @@ internal class KeyboardManager
 
 internal class GameComponent
 {
-    
+
 }

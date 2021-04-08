@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mors;
 using TMPro;
 
 
@@ -18,7 +19,13 @@ public class BagUI : MonoBehaviour
     [SerializeField] private RawImage item_ui_picture;
 
     [SerializeField]  private Button[] item_buttons = new Button[7];
+    [SerializeField]  private Dictionary<string, string> item_description = new Dictionary<string,string>();
 
+    private void Item_Dictionary_Initialization()
+    {
+        string json=SimpleFunction.Json_Read("C:/Users/Mors/Desktop/Information.txt");
+
+    }
 
     private void Get_Component()
     {
@@ -59,7 +66,17 @@ public class BagUI : MonoBehaviour
         Get_Component();
         Load_Item_Data();
 
+        // 测试区
 
+        item_description.Add("农夫山泉","有点甜");
+        item_description.Add("旺旺牛奶", "比你聪明，比你强");
+        ForSerialize<Dictionary<string, string>> for_serialize = new ForSerialize<Dictionary<string, string>>(item_description);
+        string json = JsonUtility.ToJson(for_serialize);
+        Debug.Log(json);
+        Debug.Log(item_description);
+        
+        SimpleFunction.Json_Write(json, "C:/Users/Mors/Desktop/Information.txt");
+        //
     }
     void Update()
     {

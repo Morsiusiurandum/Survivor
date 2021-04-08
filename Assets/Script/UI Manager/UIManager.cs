@@ -6,9 +6,9 @@ using Mors;
 public class UIManager : MonoBehaviour
 {
     public GameObject ui;
-    [SerializeField] private Canvas main_ui;
-    [SerializeField] private Canvas pause_ui;
-    [SerializeField] private Canvas bag_ui;
+    [SerializeField] private  Canvas main_ui;
+    [SerializeField] private  Canvas pause_ui;
+    [SerializeField] private  Canvas bag_ui;
 
     
 
@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
         bag_ui = ui.transform.Find("Bag UI").gameObject.GetComponent<Canvas>();
     }
 
-    internal void Change_Different_Canvas(GameCanvas now_game_canvas)
+    internal  void Change_Different_Canvas(GameCanvas now_game_canvas)
     {
         switch (now_game_canvas)
         {
@@ -77,7 +77,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-  
+
     void Start()
     {
         Load_All_Canvas();
