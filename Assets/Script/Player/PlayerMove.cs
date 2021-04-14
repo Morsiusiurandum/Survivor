@@ -6,6 +6,7 @@ using Mors;
 
 public class PlayerMove : MonoBehaviour
 {
+    public GameObject it;
     private CharacterController character_controller;
     private Text text;
     private GameObject eyes, body;
@@ -35,10 +36,10 @@ public class PlayerMove : MonoBehaviour
         if (!character_controller.isGrounded)
         {
             character_controller.Move(-transform.up * Time.deltaTime * 9.8f);
-            return;
+            //return;
         }
         //移动模拟
-        Vector3 final_speed = (Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward) * Time.deltaTime;
+        Vector3 final_speed = (Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward) *Time.deltaTime;
         test = final_speed;
         if (final_speed == Vector3.zero)
         {
