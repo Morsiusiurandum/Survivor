@@ -17,15 +17,40 @@ namespace Mors
 
     public enum PlayerBuff { };
 
-    [SerializeField]
-    public class ForSerialize<T>
+    [Serializable]
+    class SerializeDictionary
     {
-       public ForSerialize(T score_data)
-        {
-            warp_data = score_data;
-        }
         [SerializeField]
-        private T warp_data;
+        internal Dictionary<string, string> warped_data;
+    }
+
+    [Serializable]
+    class PublicSerialize
+    {
+        private List<string> dictionary_t_ket;
+        private List<string> dictionary_t_value;
+        private List<item> props;
+
+        PublicSerialize(List<item> data)
+        {
+            
+        }
+        PublicSerialize(Dictionary<string,string> data)
+        {
+
+        }
+
+        /*internal List<item> Data_Back()
+        {
+
+            return;
+        }
+        internal Dictionary<string, string> Data_Back()
+        {
+
+            return;
+        }*/
+
     }
 }
 

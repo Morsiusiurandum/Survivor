@@ -103,11 +103,11 @@ public class PlayerBag : MonoBehaviour
         Bag_Props_Update(new item(hit.collider.gameObject.name));
         Destroy(hit.collider.gameObject);
         string json = JsonUtility.ToJson(wrap_props);
-        SimpleFunction.Json_Write(JsonUtility.ToJson(wrap_props), "C:/Users/Mors/Desktop/DataBase.txt");
+        SimpleFunction.Json_Write(JsonUtility.ToJson(wrap_props), "C:/Users/Mors/Desktop/DataBase.json");
     }
     private void Awake()
     {
-        Load_Bag_Items("C:/Users/Mors/Desktop/DataBase.txt");
+        Load_Bag_Items("C:/Users/Mors/Desktop/DataBase.json");
     }
     private void Update()
     {

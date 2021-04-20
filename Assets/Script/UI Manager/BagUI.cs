@@ -70,7 +70,8 @@ public class BagUI : MonoBehaviour
 
         item_description.Add("农夫山泉","有点甜");
         item_description.Add("旺旺牛奶", "比你聪明，比你强");
-        ForSerialize<Dictionary<string, string>> for_serialize = new ForSerialize<Dictionary<string, string>>(item_description);
+        SerializeDictionary for_serialize = new SerializeDictionary();
+        for_serialize.warped_data = item_description;
         string json = JsonUtility.ToJson(for_serialize);
         Debug.Log(json);
         Debug.Log(item_description);

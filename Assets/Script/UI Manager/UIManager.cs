@@ -6,9 +6,9 @@ using Mors;
 public class UIManager : MonoBehaviour
 {
     public GameObject ui;
-    [SerializeField] private  Canvas main_ui;
-    [SerializeField] private  Canvas pause_ui;
-    [SerializeField] private  Canvas bag_ui;
+    [SerializeField] internal static Canvas main_ui;
+    [SerializeField] internal static Canvas pause_ui;
+    [SerializeField] internal static Canvas bag_ui;
 
     
 
