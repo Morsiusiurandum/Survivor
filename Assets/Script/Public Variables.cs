@@ -18,39 +18,94 @@ namespace Mors
     public enum PlayerBuff { };
 
     [Serializable]
-    class SerializeDictionary
+    class item
     {
-        [SerializeField]
-        internal Dictionary<string, string> warped_data;
+        [SerializeField] private string item_name;
+        [SerializeField] private byte item_number;
+
+        internal byte num
+        {
+            get
+            {
+                return item_number;
+            }
+        }
+        internal string name
+        {
+            get
+            {
+                return item_name;
+            }
+        }
+        internal void add_number(byte num)
+        {
+            if ((item_number + num) > 255)
+            {
+                item_number = 255;
+            }
+            else
+            {
+                item_number += num;
+            }
+        }
+        //Analysis Data to Struct the item
+        internal item(string Data)
+        {
+            item_number = 0;
+            char[] stop = { '_' };
+            string[] var = Data.Split(stop, 3);
+            item_name = var[0];
+            for (int i = 0; i < var[1].Length; i++)
+            {
+                item_number = (byte)(item_number * 10 + var[1][i] - '0');
+            }
+        }
     }
 
     [Serializable]
-    class PublicSerialize
+    class Serialize
     {
-        private List<string> dictionary_t_ket;
-        private List<string> dictionary_t_value;
-        private List<item> props;
+        [SerializeField] internal List<string> dictionary_t_key;
+        [SerializeField] internal List<string> dictionary_t_value;
+        [SerializeField] internal List<item> props;
 
-        PublicSerialize(List<item> data)
-        {
-            
+        public Serialize()
+        { 
         }
-        PublicSerialize(Dictionary<string,string> data)
+        public Serialize(List<item> data)
         {
-
+            props = new List<item>();
+            props = data;
+        }
+        public Serialize(Dictionary<string, string> data)
+        {
+            dictionary_t_key = new List<string>();
+            dictionary_t_value = new List<string>();
+            foreach (string key in data.Keys)
+            {
+                dictionary_t_key.Add(key);
+                dictionary_t_value.Add(data[key]);
+            }
         }
 
-        /*internal List<item> Data_Back()
+        internal List<item> Data_Back()
         {
-
-            return;
+            return props;
         }
-        internal Dictionary<string, string> Data_Back()
+        internal Dictionary<string, string> Data_Back(bool temp = true)
         {
+            Dictionary<string, string> back_dictionary = new Dictionary<string, string>();
+            for (int i = 0; i < dictionary_t_value.Count; i++)
+            {
+                back_dictionary.Add(dictionary_t_key[i], dictionary_t_value[i]);
+            }
+            return back_dictionary;
+        }
 
-            return;
-        }*/
-
+        internal void Load(string path)
+        {
+            SimpleFunction.Json_Write(JsonUtility.ToJson(this,true), path);
+        }
     }
 }
 
@@ -69,8 +124,6 @@ internal class PlayerData
 
     internal static float player_hunger_speed = 10;
     internal static List<item> props_value;
-
-    internal static List<PlayerBuff> buff_list;
 }
 
 public class PublicVariables
@@ -148,7 +201,7 @@ internal class SimpleFunction
         {
             using (StreamWriter sw = new StreamWriter(path))
             {
-                sw.WriteLine(json);
+                sw.Write(json);
             }
         }
         catch (Exception exceptione)
@@ -174,10 +227,9 @@ internal class SimpleFunction
             using (StreamReader sr = new StreamReader(path))
             {
                 string Json_Save;
-                while ((Json_Save = sr.ReadLine()) != null)
+                while ((Json_Save = sr.ReadToEnd()) != null)
                 {
                     return Json_Save;
-                    // return JsonUtility.FromJson<T>(Json_Save);
                 }
             }
         }
@@ -185,8 +237,6 @@ internal class SimpleFunction
         {
             Debug.Log(exception.Message);
         }
-
-
         return null;
     }
 }
