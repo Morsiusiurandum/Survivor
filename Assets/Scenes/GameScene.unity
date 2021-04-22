@@ -650,7 +650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &45501162
 RectTransform:
   m_ObjectHideFlags: 0
@@ -783,6 +783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0726a8ed34ee8543a02c5561c227b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  test: 
   item_ui_name: {fileID: 0}
   item_ui_weight: {fileID: 0}
   item_ui_number: {fileID: 0}
@@ -4889,7 +4890,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 56743035228373c49ba4b36ac850acf1, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
@@ -7308,7 +7309,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f42c058c4405a749a50c188e7266fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  props: []
+  serialize_props:
+    dictionary_t_key: []
+    dictionary_t_value: []
+    props: []
 --- !u!1 &2007641893
 GameObject:
   m_ObjectHideFlags: 0
