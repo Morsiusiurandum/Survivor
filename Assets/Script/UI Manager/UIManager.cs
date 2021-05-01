@@ -46,8 +46,6 @@ public class UIManager : MonoBehaviour
                     GameGlobalVariables.game_canavs = GameCanvas.BagUI;
                     SimpleFunction.Mouse_Point_Converter(MouseStatus.Freedom);
                     Time.timeScale = 0;
-
-
                 }
                 else if (Input.GetKeyDown(KeyCode.Escape))
                 {
@@ -58,7 +56,6 @@ public class UIManager : MonoBehaviour
                     Time.timeScale = 0;
 
                 }
-
                 break;
 
             case GameCanvas.BagUI:
@@ -70,7 +67,6 @@ public class UIManager : MonoBehaviour
                     SimpleFunction.Mouse_Point_Converter(MouseStatus.Locked);
                     Time.timeScale = 1;
                 }
-
                 break;
             default:
                 break;
@@ -87,7 +83,5 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         Change_Different_Canvas(GameGlobalVariables.game_canavs);
-
     }
-
 }

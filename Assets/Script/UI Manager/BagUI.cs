@@ -53,6 +53,7 @@ public class BagUI : MonoBehaviour
     {
         test = PlayerData.props_value[item_index].name;
         item_ui_name.text = PlayerData.props_value[item_index].name;
+        item_ui_number.text = "x"+PlayerData.props_value[item_index].num.ToString();
         item_ui_description.text = item_description[PlayerData.props_value[item_index].name];
     }
     public void Click_Button()
@@ -63,6 +64,10 @@ public class BagUI : MonoBehaviour
         Show_Props_Information(button_index);
     }
 
+    public void Click_Button_Add()
+    {
+
+    }
     private void Start()
     { 
         Item_Dictionary_Initialization();

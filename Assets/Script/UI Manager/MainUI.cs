@@ -10,6 +10,8 @@ public class MainUI : MonoBehaviour
     private Image pie_menu_image;
     private float mouse_x, mouse_y;
     [SerializeField] private byte pie_menu_area;
+    private Slider[] value_ui = new Slider[4];
+
     /// <summary>
     /// 加载放射菜单的精灵
     /// </summary>
@@ -21,16 +23,15 @@ public class MainUI : MonoBehaviour
         }
         pie_menu_image = GameObject.Find("UI/Main UI/Pie Menu").GetComponent<Image>();
     }
+
     /// <summary>
     /// 根据条件显示放射菜单
     /// </summary>
-    /// <param name="meet_condition">
-    /// 返回true：在游戏界面+Tab按下
-    /// </param>
-    private void Show_Pie_Menu(bool meet_condition)
+    private void Show_Pie_Menu()
     {
-        if (meet_condition)
+        if (Input.GetKey(KeyCode.Tab))
         {
+            Time.timeScale = 0.1f;
             SimpleFunction.Mouse_Point_Converter(MouseStatus.Freedom);
             pie_menu_image.color = new Color(255, 255, 255, 255);
             mouse_x = (int)(Input.mousePosition.x - Screen.width / 2f);
@@ -46,8 +47,9 @@ public class MainUI : MonoBehaviour
             }
 
         }
-        else
+        else if(Input.GetKeyUp(KeyCode.Tab))
         {
+            Time.timeScale = 1;
             pie_menu_image.color = new Color(255, 255, 255, 0);
             SimpleFunction.Mouse_Point_Converter(MouseStatus.Locked);
         }
@@ -62,7 +64,12 @@ public class MainUI : MonoBehaviour
 
             case 0:
                 break;
-            case 1: 
+            case 1:
+                UIManager.main_ui.gameObject.SetActive(false);
+                UIManager.bag_ui.gameObject.SetActive(true);
+                GameGlobalVariables.game_canavs = GameCanvas.BagUI;
+                SimpleFunction.Mouse_Point_Converter(MouseStatus.Freedom);
+                Time.timeScale = 0;
                 break;
             case 2: 
                 break;
@@ -78,7 +85,8 @@ public class MainUI : MonoBehaviour
         Debug.Log(pie_menu_area);
     }
 
-    private Slider[] value_ui = new Slider[4];
+
+   
     /// <summary>
     /// 初始化角色状态UI组
     /// </summary>
@@ -103,13 +111,14 @@ public class MainUI : MonoBehaviour
 
 
 
-
-
-
     private void Start()
     {
         Player_Value_Construction(GameObject.Find("UI/Main UI/Player_Value"));
         Load_Pie_Menu_Sprite();
+
+        Time.timeScale = 1;
+        pie_menu_image.color = new Color(255, 255, 255, 0);
+        SimpleFunction.Mouse_Point_Converter(MouseStatus.Locked);
     }
 
     private void Update()
@@ -117,9 +126,8 @@ public class MainUI : MonoBehaviour
         Player_Value_Update();
         if (GameGlobalVariables.game_status == GameStatus.Main)
         {
-            Show_Pie_Menu(Input.GetKey(KeyCode.Tab));
+            Show_Pie_Menu();
             Select_Pie_Menu(Input.GetKeyUp(KeyCode.Tab));
         }
     }
-
 }
